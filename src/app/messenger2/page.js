@@ -5,14 +5,14 @@ import { useConversation } from "@/hooks/users"; // hook personalizado para ruta
 import Talk from "talkjs";
 
 export default function Messenger2() {
-  const appId = 'tRRLiGzf';   // esta id es la id principal de la aplicacion de la api para hacer absolutamente todo
-  const { userId, otherUserId, conversationId } = useConversation();   // Se obtiene los parametros de la URL
+  const appId = process.env.NEXT_PUBLIC_TALK_JS_APP_ID;
+  const { userId, otherUserId, conversationId } = useConversation(); // Se obtiene los parametros de la URL
   const containerRef = useRef(null);
 
   useEffect(() => {
-
     // Nesesario para iniciar el chat, sin esto explota todo, (ruta dinamica)
-    if (!userId || !otherUserId || !conversationId || !containerRef.current) return;
+    if (!userId || !otherUserId || !conversationId || !containerRef.current)
+      return;
 
     let session; // declaramos session aqui para que el cleanup pueda acceder a ella
 
