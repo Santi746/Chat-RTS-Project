@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, Suspense } from "react";
 import { useConversation } from "@/hooks/users"; // hook personalizado para ruta dinamica
 import Talk from "talkjs";
 
-export default function Messenger2() {
+function Messenger2Content() {
   const appId = 'tRRLiGzf';   // esta id es la id principal de la aplicacion de la api para hacer absolutamente todo
   const { userId, otherUserId, conversationId } = useConversation();   // Se obtiene los parametros de la URL
   const containerRef = useRef(null);
@@ -52,5 +52,13 @@ export default function Messenger2() {
         Cargando tu hermosa conversacion...
       </div>
     </div>
+  );
+}
+
+export default function Messenger2() {
+  return (
+    <Suspense fallback={<div style={{ padding: "20px" }}>Cargando chat...</div>}>
+      <Messenger2Content />
+    </Suspense>
   );
 }
